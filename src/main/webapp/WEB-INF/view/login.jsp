@@ -1,0 +1,68 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
+<html>
+
+<head>
+	<title>Custom Login Page</title>
+	
+	<style>
+		.failed {
+			color: red;
+		}
+	</style>
+		
+</head>
+
+<body>
+
+<h3>My Custom Login Page</h3>
+
+	<form:form action="${pageContext.request.contextPath}/user/authenticate"
+			   method="POST">
+		
+		<c:if test="${message != null}">
+		
+			<i>Registration is Successfull. Please Login</i>
+			
+		</c:if>	
+		<!-- Check for login error -->
+		<c:if test="${param.error != null}">
+		
+			<i class="failed">Sorry! You entered invalid username/password.</i>
+			
+		</c:if>
+		
+		<c:if test="${param.logout != null}">
+		
+			<i class="failed">You have been loggedout</i>
+			
+		</c:if>
+			
+		<p>
+			User name: <input type="text" name="userName"/>
+		</p>
+
+		<p>
+			Password: <input type="password" name="password" />
+		</p>
+		
+		<input type="submit" value="LOGIN" />
+		
+	</form:form>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
