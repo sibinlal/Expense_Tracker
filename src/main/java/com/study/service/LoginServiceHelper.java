@@ -9,20 +9,17 @@ import com.study.entity.Customer;
 
 public class LoginServiceHelper {
 	
-	CustomerService customerService;
-	
-	public boolean isSuccessLogin(Customer theCustomer) {
-		boolean isLoginSuccess = false;
-		customerService = new CustomerServiceImpl();
-		System.out.println("inside login service helper method");
-		List<Customer> custList = customerService.autheticationCheck(theCustomer);
-		System.out.println("came back to login helper");
+	public static boolean isSuccessLogin(List<Customer> custList) {
+		boolean isLoginSuccess = true;
+		System.out.println(custList.size());
 		for(Customer i : custList) {
 			System.out.println(i);
 		}
-		if(null != custList && custList.size() <= 2) {
-			isLoginSuccess = true;
-		}		
+		if(custList.isEmpty() || custList.size() >= 2) {
+			isLoginSuccess = false;
+		}
+			
+		System.out.println(custList.isEmpty());		
 		return isLoginSuccess;		
 	}
 

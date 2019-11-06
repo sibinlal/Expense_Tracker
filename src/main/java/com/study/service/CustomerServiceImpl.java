@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.study.dao.CustomerDAO;
+import com.study.dao.CustomerDAOImpl;
 import com.study.entity.Customer;
 
 @Service
@@ -46,8 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional
 	public List<Customer> autheticationCheck(Customer theCustomer){		
-		return customerDAO.autheticationCheck(theCustomer);
-		
+		return customerDAO.autheticationCheck(theCustomer);		
 	}
 	
 }

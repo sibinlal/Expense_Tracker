@@ -15,23 +15,24 @@ import com.study.service.LoginServiceHelper;
 @Controller
 @RequestMapping("/user")
 public class LoginController {
-	
+
 	@Autowired
 	CustomerService customerService;
-	
+
 	@RequestMapping("/authenticate")
 	public String authenticateUser(@ModelAttribute("customer") Customer theCustomer) {
-		
-		System.out.println("Uname:" + theCustomer.getUserName() + " passwd:" + theCustomer.getPassword());
+
 		LoginServiceHelper loginHelper = new LoginServiceHelper();
-		System.out.println("calling helper method");
-		boolean isLoginSuccess = loginHelper.isSuccessLogin(theCustomer);
-		if(isLoginSuccess) {
+		List<Customer> custList = customerService.autheticationCheck(theCustomer);
+		boolean isSuccessLogin = LoginServiceHelper.isSuccessLogin(custList);
+		System.out.println("Login success value:" + isSuccessLogin);
+		if(isSuccessLogin) {
 			return "member-center";
 		}
 		else {
 			return "login";
 		}
+
 	}
 
 }

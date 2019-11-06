@@ -1,12 +1,36 @@
 package com.study.dao;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceUnitUtil;
+import javax.persistence.SynchronizationType;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.metamodel.Metamodel;
+
+import org.hibernate.Cache;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionBuilder;
 import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+import org.hibernate.StatelessSessionBuilder;
+import org.hibernate.TypeHelper;
+import org.hibernate.boot.spi.SessionFactoryOptions;
+import org.hibernate.engine.spi.FilterDefinition;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metadata.CollectionMetadata;
 import org.hibernate.query.Query;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
 import com.study.entity.Customer;
@@ -73,25 +97,20 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	public List<Customer> autheticationCheck(Customer theCustomer) {
-		System.out.println("inside dao impl");
 		String uname = theCustomer.getUserName();
 		String passwd = theCustomer.getPassword();
-		System.out.println("DAO values: "+ uname + " "+ passwd);
-
+			
 		Session currentSession = sessionFactory.getCurrentSession();
+		
 		Query theQuery = currentSession
-				.createQuery("select * from Customer where userName=:uname and password=:password");
+				.createQuery("from Customer where userName=:uname and password=:password");
 		theQuery.setParameter("uname", uname);
 		theQuery.setParameter("password", passwd);
 		
 		List<Customer> customerList = new ArrayList<Customer>();
 		customerList = theQuery.getResultList();
-		
-		for(Customer i : customerList) {
-			System.out.println(i);
-		}
 		return customerList;
 
 	}
-
+	
 }

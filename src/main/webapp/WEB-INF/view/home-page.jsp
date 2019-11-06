@@ -5,7 +5,7 @@
 EXPENSE TRACKER HOME PAGE
 <hr>
 
-<form:form action="${pageContext.request.contextPath}/showSignUpPage">
+<form:form action="${pageContext.request.contextPath}/ET/showSignUpPage">
 
 <input type="submit" name="signUp" value="SIGNUP"/>
 
